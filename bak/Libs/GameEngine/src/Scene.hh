@@ -4,8 +4,9 @@
 #include "Events/EventDispatcher.hh"
 #include "Core/CoreServices.hh"
 #include "SceneManager.hh"
+#include "Entities/BaseEntity.hh"
 
-class Scene : public EventDispatcher
+class Scene : public BaseEntity
 {
 public:
   Scene();
@@ -14,7 +15,6 @@ public:
   void			Update();
 
   bool			isEnabled();
-
 
 private:
   bool			enabled_;

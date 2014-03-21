@@ -3,9 +3,13 @@
 
 #include "SceneManager.hh"
 #include "GameScreenManager.hh"
+#include "RessourceManager.hh"
+
 
 class			Renderer;
 class			Core;
+class			RessourceManager;
+class			SoundManager;
 
 class			CoreServices : public EventDispatcher
 {
@@ -25,6 +29,12 @@ class			CoreServices : public EventDispatcher
   void			setGameScreenManager(GameScreenManager *screenManager);
   GameScreenManager	*getGameScreenManager();
 
+  void			setSoundManager(SoundManager *soundManager);
+  SoundManager		*getSoundManager();
+
+  void			setRessourceManager(RessourceManager *ressourceManager);
+  RessourceManager	*getRessourceManager();
+
   void			setRenderer(Renderer *renderer);
   Renderer		*getRenderer();
 
@@ -36,8 +46,10 @@ protected:
 private:
   static CoreServices	*instance_;
 
+  RessourceManager	*ressourceManager_;
   SceneManager		*sceneManager_;
   GameScreenManager	*gameScreenManager_;
+  SoundManager		*soundManager_;
 
   Core			*core_;
   Renderer		*renderer_;
@@ -45,5 +57,7 @@ private:
 };
 
 #include "Core.hh"
+#include "RessourceManager.hh"
+#include "Sound/SoundManager.hh"
 
 #endif

@@ -1,9 +1,9 @@
 
-NAME =		$(PWD)/libGameEngine.a
+NAME =		$(PWD)/libGameEngine.so
 
-SRC =		./src
+SRC =		src
 
-SOURCES =       $(SRC)/GameEngine.cpp \
+SOURCES =	$(SRC)/GameEngine.cpp \
 		$(SRC)/Events/InputEvent.cpp \
 		$(SRC)/Events/Event.cpp \
 		$(SRC)/Events/EventHandler.cpp \
@@ -16,24 +16,32 @@ SOURCES =       $(SRC)/GameEngine.cpp \
 		$(SRC)/GameScreen.cpp \
 		$(SRC)/GameScreenManager.cpp \
 		$(SRC)/Core/CoreServices.cpp \
-		$(SRC)/Entities/BaseEntity.cpp \
+		$(SRC)/Clock/Clock.cpp \
+
+SOURCES +=	$(SRC)/Entities/BaseEntity.cpp \
 		$(SRC)/Entities/ShapeEntity.cpp \
 
-OBJS =          $(SOURCES:.cpp=.o)
+SOURCES +=	$(SRC)/Sound/SoundManager.cpp \
+		$(SRC)/Sound/Sound.cpp \
+		$(SRC)/RessourceManager.cpp \
 
-LDFLAGS =
+SOURCES += 	$(SRC)/Image.cpp \
+		$(SRC)/stb_image.cpp \
+		$(SRC)/Entities/ImageEntity.cpp \
 
-CXX =           g++
+OBJS =		$(SOURCES:.cpp=.o)
 
-INCLUDES =	-I$(SRC)
+LDFLAGS =	-ldl -rdynamic -shared
 
-CXXFLAGS =      $(INCLUDES) -ansi -pedantic -Wextra -Wall
+CXX =		g++
+
+INCLUDES =	-I./$(SRC)
+
+CXXFLAGS =	$(INCLUDES) -ansi -pedantic -Wextra -Wall -fPIC
 
 
 $(NAME):	$(OBJS)
-		ar rc $@ $(OBJS)
-		ranlib $@
-#		$(CXX) $(OBJS) -o $@ $(LDFLAGS)
+		$(CXX) $(OBJS) -o $@ $(LDFLAGS)
 
 .cpp.o:
 		$(CXX) -c $< -o $@ $(CXXFLAGS)
@@ -41,10 +49,9 @@ $(NAME):	$(OBJS)
 clean:
 		$(RM) $(OBJS)
 
-fclean:         clean
+fclean: 	clean
 		$(RM) $(NAME)
 
-re:             fclean $(NAME)
+re:		fclean $(NAME)
 
-.PHONY:         all clean fclean re
-
+.PHONY: 	all clean fclean re

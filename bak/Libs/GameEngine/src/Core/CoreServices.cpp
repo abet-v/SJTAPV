@@ -16,6 +16,8 @@ CoreServices::CoreServices() : EventDispatcher()
 {
   this->sceneManager_ = new SceneManager();
   this->gameScreenManager_ = new GameScreenManager();
+  this->soundManager_ = new SoundManager();
+  this->ressourceManager_ = new RessourceManager();
 }
 
 CoreServices::~CoreServices()
@@ -38,6 +40,16 @@ void		CoreServices::Render()
 SceneManager	*CoreServices::getSceneManager()
 {
   return (this->sceneManager_);
+}
+
+RessourceManager*CoreServices::getRessourceManager()
+{
+  return (this->ressourceManager_);
+}
+
+SoundManager	*CoreServices::getSoundManager()
+{
+  return (this->soundManager_);
 }
 
 GameScreenManager *CoreServices::getGameScreenManager()
@@ -65,6 +77,11 @@ void		CoreServices::setGameScreenManager(GameScreenManager *screenManager)
   this->gameScreenManager_ = screenManager;
 }
 
+void		CoreServices::setSoundManager(SoundManager *soundManager)
+{
+  this->soundManager_ = soundManager;
+}
+
 void		CoreServices::setCore(Core *core)
 {
   this->core_ = core;
@@ -73,4 +90,9 @@ void		CoreServices::setCore(Core *core)
 void		CoreServices::setRenderer(Renderer *renderer)
 {
   this->renderer_ = renderer;
+}
+
+void		CoreServices::setRessourceManager(RessourceManager *ressourceManager)
+{
+  this->ressourceManager_ = ressourceManager;
 }

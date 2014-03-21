@@ -3,6 +3,8 @@
 
 #include "Vector2.hh"
 
+class			Image;
+
 class			Renderer
 {
 public:
@@ -11,9 +13,13 @@ public:
 
   void			Render() {};
 
-  virtual  void		drawRect(Vector2, int, int) = 0;
+  virtual void		clearScreen(int) = 0;
+  virtual void		drawRect(Vector2, int, int) = 0;
+  virtual void		drawImage(Image *, Vector2) = 0;
 private:
 
 };
+
+// #include "Image.hh"
 
 #endif
