@@ -15,8 +15,14 @@ void		Player::onCreate()
 
 void		Player::shoot()
 {
-  this->addChild(new Bullet("Resources/images/apple.png"));
-  this->sound_->play(false);
+  static int	last_shoot;
+
+  if (CoreServices::getInstance()->getCore()->getTicks() - last_shoot > 500)
+    {
+      this->addChild(new Bullet("Resources/images/apple.png"));
+      this->sound_->play(false);
+      last_shoot = CoreServices::getInstance()->getCore()->getTicks();
+    }
 }
 
 double		Player::getAngle()
@@ -30,47 +36,32 @@ void		Player::Update()
 
   input = CoreServices::getInstance()->getCore()->getInput();
   if (input->getKeyState(114))
-    this->TranslateX(+1 * Player::PlayerSpeed);
-  if (input->getKeyState(113))
-    this->TranslateX(-1 * Player::PlayerSpeed);
-
-  // if (input->getKeyState(116))
-  //   this->TranslateY(+1 * Player::PlayerSpeed);
-  // if (input->getKeyState(111))
-  //   this->TranslateY(-1 * Player::PlayerSpeed);
-
-  
-  // if (input->getKeyState(114))
-  //   this->angle_ -= 0.1;
-  // if (input->getKeyState(113))
-  //   this->angle_ += 0.1;
-
-
-  
-  // if (input->getKeyState(116))
-  //   {
-  //     this->TranslateY(+(sin(this->angle_) * Player::PlayerSpeed));
-  //     this->TranslateX(-(cos(this->angle_) * Player::PlayerSpeed));
-  //   }
-  // if (input->getKeyState(111))
-  //   {
-  //     this->TranslateY(-(sin(this->angle_) * Player::PlayerSpeed));
-  //     this->TranslateX(+(cos(this->angle_) * Player::PlayerSpeed));
-  //   }
-  if (jump_ >= 0)
     {
-      this->TranslateY(-0.4 * Player::PlayerSpeed);
-      jump_ -= 0.4;
+      this->TranslateX(+0.4 * Player::PlayerSpeed);
+      this->angle_ = 0;
+    }
+  if (input->getKeyState(113))
+    {
+      this->TranslateX(-0.4 * Player::PlayerSpeed);
+      this->angle_ = 180;
+    }
+  if (jump_ < 0)
+    {
+      this->TranslateY(jump_ / 10 * Player::PlayerSpeed);
+      jump_ += 1;
     }
   else if (getPositionY() < 150)
     {
-      this->TranslateY(+0.4 * Player::PlayerSpeed);
+      // if (jump_ <= 0)
+      // 	jump_ = -10;
+      this->TranslateY(1 * Player::PlayerSpeed);
+      // jump_++;
     }
-  else if (input->getKeyState(65))
-    this->jump_ = 10;
+  else if (input->getKeyState(116))
+    this->jump_ = -10;
   // else
   //   this->setColor(0xFFFF00);
 
-  // if (input->getKeyState(65))
-  //   this->shoot();
+  if (input->getKeyState(65))
+    this->shoot();
 }

@@ -20,10 +20,9 @@ public:
 
   double		getAngle();
   static const int	PlayerSpeed = 8;
-  
+
 private:
   void			shoot();
-
 
   double		jump_;
   double		angle_;
