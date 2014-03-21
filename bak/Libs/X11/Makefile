@@ -16,7 +16,7 @@ LDFLAGS =       -L. -lmlx -L/usr/lib64/X11 -lXext -lX11 -lm -shared
 
 CXX =           g++
 
-INCLUDES =	-I /home/lecler_i/Work/Epitech/Tek2/C++/Nibbler/NibblerCore/src/GameEngine/ -I /home/lecler_i/Work/Epitech/Tek2/C++/Nibbler/NibblerCore/src/
+INCLUDES =	-I ../../NibblerCore/src/GameEngine/ -I ../../NibblerCore/src/
 
 CXXFLAGS =      $(INCLUDES) -ansi -pedantic -Wextra -Wall -fPIC
 
